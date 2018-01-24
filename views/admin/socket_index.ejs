@@ -1,0 +1,133 @@
+<!--<script src="/socket.io/socket.io.js"></script>-->
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script>
+	var socket = io.connect('http://localhost:5000');
+
+	// on connection to server, ask for user's name with an anonymous callback
+	socket.on('receiveIsTyping', function(data){
+		document.getElementById('receiveIsTyping').innerHTML =''; 
+		document.getElementById('receiveIsTyping').innerHTML += JSON.stringify(data);
+	});
+	socket.on('chatHistryResponse', function(data){
+		document.getElementById('chatHistryResponse').innerHTML =''; 
+		document.getElementById('chatHistryResponse').innerHTML += JSON.stringify(data);
+	});
+	socket.on('receiveMsg', function(data){
+		document.getElementById('receiveMsg').innerHTML =''; 
+		document.getElementById('receiveMsg').innerHTML += JSON.stringify(data);
+	});
+	socket.on('blockResponse', function(data){
+		document.getElementById('blockResponse').innerHTML =''; 
+		document.getElementById('blockResponse').innerHTML += JSON.stringify(data);
+	});
+	socket.on('unBlockResponse', function(data){
+		document.getElementById('unBlockResponse').innerHTML =''; 
+		document.getElementById('unBlockResponse').innerHTML += JSON.stringify(data);
+	});
+	socket.on('receiveGroupHistry', function(data){
+		document.getElementById('receiveGroupHistry').innerHTML =''; 
+		document.getElementById('receiveGroupHistry').innerHTML += JSON.stringify(data);
+	});
+	socket.on('receiveFriendList', function(data){
+		document.getElementById('receiveFriendList').innerHTML =''; 
+		document.getElementById('receiveFriendList').innerHTML += JSON.stringify(data);
+	});
+
+	socket.emit('connectUser',1);
+
+function sendIsTyping(){   
+
+   socket.emit('sendIsTyping',	{receiver_id:1,sender_name:'Shital'});
+}
+function chatHistryRequest(){   
+
+   socket.emit('chatHistryRequest',	{user_id1:1,user_id2:2});
+}
+function sendMsg(){   
+
+   socket.emit('sendMsg',{sender:1,receiver:2,message:'msg',flag:'0'});
+}
+function blockUser(){   
+
+   socket.emit('blockUser',{user_id1:1,user_id2:3});
+}
+function unBlockUser(){   
+
+   socket.emit('unBlockUser',{user_id1:1,user_id2:3});
+}
+function sendGroupHistry(){   
+
+   socket.emit('sendGroupHistry',{group_id:1,user_id:1});
+}
+function sendFriendList(){   
+
+   socket.emit('sendFriendList',{user_id:1});
+}
+
+
+	
+	
+
+</script>
+<style>
+table, th, td {
+   border: 1px solid black;
+}
+</style>
+<table style="width:80%">
+<tr>
+	<td style="width:20%">Emits</td>
+	<td style="width:20%">Input Parameters</td>
+	<td style="width:20%">Response On</td>
+	<td style="width:60%">Result</td>
+</tr>
+<tr>
+	<td><a href="#" onclick="sendIsTyping()">sendIsTyping</a></td>
+	<td>{receiver_id:2,sender_name:'shital'}</td>
+	<td>receiveIsTyping</td>
+	<td id="receiveIsTyping"></td>
+</tr>
+<tr>
+	<td><a href="#" onclick="chatHistryRequest()">chatHistryRequest</a></td>
+	<td>{user_id1:1,user_id2:2}</td>
+	<td>chatHistryResponse</td>
+	<td id="chatHistryResponse"></td>
+</tr>
+<tr>
+	<td><a href="#" onclick="sendMsg()">sendMsg</a></td>
+	<td>{sender:1,receiver:2,message:'msg',flag:'0'}</td>
+	<td>receiveMsg</td>
+	<td id="receiveMsg"></td>
+</tr>
+<tr>
+	<td><a href="#" onclick="blockUser()">blockUser</a></td>
+	<td>{user_id1:1,user_id2:3}</td>
+	<td>blockResponse</td>
+	<td id="blockResponse"></td>
+</tr>
+<tr>
+	<td><a href="#" onclick="unBlockUser()">unBlockUser</a></td>
+	<td>{user_id1:1,user_id2:3}</td>
+	<td>unBlockResponse</td>
+	<td id="unBlockResponse"></td>
+</tr>
+<tr>
+	<td><a href="#" onclick="sendGroupHistry()">sendGroupHistry</a></td>
+	<td>{group_id:1,user_id:1}</td>
+	<td>receiveGroupHistry</td>
+	<td id="receiveGroupHistry"></td>
+</tr>
+<tr>
+	<td><a href="#" onclick="sendFriendList()">sendFriendList</a></td>
+	<td>{user_id:1}</td>
+	<td>receiveFriendList</td>
+	<td id="receiveFriendList"></td>
+</tr>
+</table>
+
+
+
+
+
+

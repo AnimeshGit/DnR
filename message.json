@@ -1,0 +1,45 @@
+{
+	"congo":"Congratulations!!!!!",
+	
+	"signup_success" : {
+		"signup_title":"DnR Registration",
+		"signup_body":"You have successfully registered for DnR account."
+	},
+	"login_success" : {
+		"login_title":"DnR Login",
+		"login_body":"You have successfully login for DnR account."
+	},
+	"case_update_success" : {
+		"case_update_title":"New Case added successfully",
+		"case_update_body":"You have successfully submitted Case in DnR account. Your Case No."
+	},
+	"close_case":{
+		"close_case_title":"Case Closed",
+		"case1":"Your Case No.",
+		"case2":"has been Closed Now."
+	},
+	"op_rcv":{
+		"rcv_op_title":"Opinion Received",
+		"rcv_op_body":"You have received an opinion on your case no."
+	},
+	"op_given":{
+		"doc_op_title":"Opinion Delivered",
+		"doc_op_body":"Hello!! You recently give your opinion on case no."
+	},
+	"follow_ques_mail":{
+		"follow_ques_title":"Follow question received",
+		"follow_ques_title_submit":"Follow question submitted",
+		"follow_ques_body":"Hello!! You recently received a follow question on case no.",
+		"follow_ques_body_submit":"Hello!! You recently submitted a follow question on case no."
+	},
+	"follow_ans_mail":{
+		"follow_ans_title":"Follow answer received",
+		"follow_ans_title_submit":"Follow answer submitted",
+		"follow_ans_body":"Hello!! You recently received a follow answer on case no.",
+		"follow_ans_body_submit":"Hello!! You recently submitted a follow answer on case no."
+	},
+	"case_feedback":{
+		"case_feedback_title":"DnR Feedback",
+		"case_feedback_body":"Hello!! aala ka mail."
+	}
+}
