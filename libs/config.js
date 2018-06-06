@@ -7,35 +7,7 @@ var Promise = require("promise");
 var nodemailer = require('nodemailer');
 var email = require("emailjs/email");
 
-/*
-function_name : encrypt
-description : It is used for encrypt field
-input_parameters :
-field(string) : any field which you want to encrypt
-response :
-field(string) : encrypted field
-*/
 
-// var encrypt = function(text) {
-//     var cipher = crypto.createCipher(algorithm, password);
-//     var crypted = cipher.update(text, 'utf8', 'hex');
-//     crypted += cipher.final('hex');
-//     return crypted;
-// }
-/*
-function_name : decrypt
-description : It is used for decrypt field
-input_parameters :
-field(string) : any encrypted field which you want to decrypt
-response :
-field(string) : plain text field
-*/
-// var decrypt = function(text) {
-//     var decipher = crypto.createDecipher(algorithm, password)
-//     var dec = decipher.update(text, 'hex', 'utf8')
-//     dec += decipher.final('utf8');
-//     return dec;
-// }
 /*
 function_name : sendEmail
 description : It is used for sending password in mail
@@ -69,10 +41,8 @@ var sendMail = function(useremail, text, subject) {
             });
         */
         var server = email.server.connect({
-            // user: "mspragso@gmail.com",
-            // password: "GrapeGoat@980",
             user: "postmaster@eeshana.com",
-            password: "BHS^&AHHAG6J8748JAKKA",
+            password: "Pun32San!ose11",
             host: "smtp.mailgun.org",
             ssl: true
         }, function(err, msg) {
@@ -104,8 +74,8 @@ var sendMsg = function(phoneNumber, text) {
         //var twillowToken = '2d60a7944b9c0ac2c5f4903d9fafbe5a';
         //form:+1 650-481-8273
 
-        var twillowSId = 'AC2823df0cb2d52d9f2d11a2bc379616b6';
-        var twillowToken = '5c936dba069b762f6b7e30bbac2f0c38';
+        // var twillowSId = 'AC2823df0cb2d52d9f2d11a2bc379616b6';
+        // var twillowToken = '5c936dba069b762f6b7e30bbac2f0c38';
         
         // if (phoneNumber.includes(+)==true) {
         //     var res = phoneNumber;

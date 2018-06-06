@@ -18,7 +18,7 @@ If the card's owner has no default card, then the new card will become the defau
 if the owner already has a default then it will not change. To change the default, you should either update 
 the customer to have a new default_source or update the recipient to have a new default_card.
 */
-function create_card(customer_id,reqData,callback)
+module.exports.create_card = function(customer_id,reqData,callback)
 {
 	stripe.customers.createSource(
 	  customer_id,
@@ -98,8 +98,7 @@ If you delete the last remaining card on a recipient, then the default_card attr
 Note that for cards belonging to customers, you may want to prevent customers on paid subscriptions from 
 deleting all cards on file so that there is at least one default card for the next invoice payment attempt.
 */
-	
-function delete_card(customer_id,card_id,callback)
+module.exports.delete_card = function(customer_id,card_id,callback)
 {
 	stripe.customers.deleteCard(
 	  customer_id,
@@ -122,8 +121,7 @@ List all cards
 You can see a list of the cards belonging to a customer or recipient. Note that the 10 most recent sources are always available on the customer object. If you need more than those 10, 
 you can use this API method and the limit and starting_after parameters to page through additional cards.
 */
-	
-function list_cards(customer_id,callback)
+module.exports.list_cards = function(customer_id,callback)
 {
 	stripe.customers.listCards(customer_id, function(err, cards) {
 	  	if(err)

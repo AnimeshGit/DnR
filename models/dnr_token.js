@@ -1,5 +1,6 @@
 var mongoose = require('./../libs/mongoose-connection')();
 var Schema = mongoose.Schema;
+//var bcrypt = require('bcrypt');
 var plugin = require('mongoose-createdat-updatedat');
 
 // set up a mongoose model

@@ -12,8 +12,8 @@ reqData = {
 }
 */
 
-function create_customer(reqData,callback)
-{
+module.exports.create_customer = function(reqData,callback) {
+
 	stripe.customers.create(reqData, function(err, customer) {
 	  	if(err){
       console.log("create_customer=>",err);
@@ -86,7 +86,7 @@ function delete_customer(customer_id,callback)
       }
 	  
 	  });
-});
+};
 //********************************************
 /*
 Returns a list of your customers.

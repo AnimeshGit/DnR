@@ -6,14 +6,24 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 global.appRoot = path.resolve(__dirname);
 
+// var AWS = require('aws-sdk');
 
+// // aws.config.loadFromPath('config.json');
+// AWS.config.update({
+//     region:'us-east-1',		
+//     accessKeyId	  : 'AKIAIRQLE6DKJIHFX56Q',
+//     secretAccessKey  : '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',
+//     apiVersion : '2012-10-08'
+// });
+
+// console.log('in...');
 var cors = require('cors')
 const session = require('express-session');
 var flash = require('connect-flash');
 var fetch = require('node-fetch');
 
 const mongoose = require('./libs/mongoose-connection')();
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
 var app = express();
 app.use(cors());
 
@@ -76,7 +86,7 @@ global.globalConsTant = require('./Constants/constant');
 
 //Users_Apis
 var index = require('./routes/user/index');
-app.use('/index', index);
+app.use('/', index);
 
 var users = require('./routes/user/users');
 app.use('/users', users);
@@ -94,12 +104,22 @@ app.use('/admin_terms', admin_terms);
 var admin_packages = require('./routes/user/admin/packages');
 app.use('/admin_packages', admin_packages);
 
+var admin_privacy = require('./routes/user/admin/privacy');
+app.use('/admin_privacy', admin_privacy);
+
+var admin_templates = require('./routes/user/admin/templates');
+app.use('/admin_templates', admin_templates);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
+
+var stripe = require("stripe")(
+  "sk_test_Z5EXtf7uNhmn2Y8CLvptdrRN"
+);
 
 // error handler
 app.use(function(err, req, res, next) {

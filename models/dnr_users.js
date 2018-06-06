@@ -21,11 +21,10 @@ var UserSchema = new Schema({
         type: String
     },
     date_of_birth: {
-        type: Date,
-        default: Date.now
+        type: Date
     },
     age: {
-        type: String
+        type: Number
     },
     show_age: {
         type: Boolean,
@@ -48,8 +47,16 @@ var UserSchema = new Schema({
     height: {
         type: Number
     },
+    show_height : {
+        type : Boolean,
+        default  :true
+    },
     weight: {
         type: Number
+    },
+    show_weight : {
+        type : Boolean,
+        default  :true
     },
     ethnicity: {
         type: String
@@ -64,11 +71,15 @@ var UserSchema = new Schema({
     interest: {
         type: [String]
     },
+    rating: {
+        type: [String]
+    },
     location: {
         type: [Number]
     },
     unit_system: {
-        type: String
+        type: String,
+        default: 'Metrics'
     },
     searching_for: {
         type: [String]
@@ -111,7 +122,8 @@ var UserSchema = new Schema({
         ethnicity:[String],
         relationship_status:[String],
         searching_for:[String],
-        likes:[String]
+        likes:[String],
+        country:String
     },
     my_favorite_list: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -131,6 +143,12 @@ var UserSchema = new Schema({
     },
     promocode:{
         type:String
+    },
+    stripe_customer_id : {
+        type:String
+    },
+    country :{
+        type : String
     }
 });
 

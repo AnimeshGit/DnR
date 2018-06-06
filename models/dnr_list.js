@@ -16,8 +16,8 @@ var ListItems = new Schema({
     interests: {
         type: [String]
     },
-    ratings: {
-        type: [String]
+    ratings:{
+        type:[String]
     }
 });
 

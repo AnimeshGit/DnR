@@ -30,8 +30,7 @@ reqData = {
   ]
 }
 */
-function create_subscription(reqData,callback)
-{
+module.exports.create_subscription = function(reqData,callback) {
 	stripe.subscriptions.create(reqData, function(err, subscription) {
 	    if(err)
 	  	{
@@ -49,7 +48,7 @@ function create_subscription(reqData,callback)
 Retrieve a subscription
 Retrieves the subscription with the given ID
 */
-function retrieve_subscription(subscription_id,callback)
+module.exports.retrieve_subscription = function(subscription_id,callback)
 {	
 	stripe.subscriptions.retrieve(
   	subscription_id,

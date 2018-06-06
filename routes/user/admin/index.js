@@ -8,10 +8,12 @@ const session = require('express-session');
 const CONSTANTS = require(appRoot + '/Constants/constant');
 var jwt = require('jsonwebtoken');
 var jwtAuth = require(appRoot + '/libs/jwtAuth');
-var DnrAdminUser = require(appRoot + '/models/DnrMasterAdmin');
+var DnrAdminUser = require(appRoot + '/models/dnrMasterAdmin');
 var Token = require(appRoot + '/models/dnr_token');
 var User = require(appRoot + '/models/dnr_users');
 var Dates = require(appRoot + '/models/dnr_dates');
+var Contacts = require(appRoot + '/models/dnrContacts');
+var Contents = require(appRoot + '/models/dnrContents');
 
 // Dnr Admin Singup
 // created by - AniMesh;
@@ -85,8 +87,10 @@ router.post('/admin_signup', function(req, res, next) {
 // updated on - 20th Dec 2017;
 router.post('/admin_login', function(req, res, next) {
     var sess = req.session;
+    // console.log(req.body)
     var email = req.body.username;
     var password = req.body.password;
+    console.log(email);
     if (email != null) {
         DnrAdminUser.findOne({
             'adminEmail': email
@@ -241,44 +245,11 @@ router.get('/getAllUsers', function(req, res, next) {
 router.get('/getEachUser/:id',function(req,res,next) {
     var token = req.headers['accesstoken']
     jwtAuth.checkAuth(token).then(function(result) {
-        User.findById(req.params.id, function(err,result){
+        User.findOne({_id:req.params.id}, function(err,result){
             if (result) {
                 res.json({
                     success: true,
                     msg: "User data successfully fetch",
-                    data: result
-                })
-                return            
-            } else{
-                res.json({
-                    success: false,
-                    msg: "Please Enter valid Id"
-                })
-                return
-            };
-        })
-    }).catch(function(error) {
-        res.json({
-            success: false,
-            msg: "Authentication failed"
-        })
-        return
-    })
-})
-//edit admin profile
-router.get('/editAdminProfile',function(req,res){
-
-})
-// delete users
-// created on - 10th Jan 2017;
-router.get('/removeEachUser/:id',function(req,res,next){
-    var token = req.headers['accesstoken']
-    jwtAuth.checkAuth(token).then(function(result) {
-        User.findByIdAndRemove(req.params.id, function(err,result){
-            if (result) {
-                res.json({
-                    success: true,
-                    msg: "User data successfully Deleted",
                     data: result
                 })
                 return            
@@ -329,6 +300,182 @@ router.get('/getDashBoardData',function(req,res,next) {
             msg: "Authentication failed"
         })
         return
+    })
+})
+// Dnr Contacts
+// created by - AniMesh;
+// created on - 24th April 2018;
+router.post('/addContacts', function(req, res, next) {
+    var fullName  = req.body.fullName;
+    var email   = req.body.email;
+    var phoneNumber      = req.body.phoneNumber;
+    var subject   = req.body.subject;
+    var textMessage   = req.body.textMessage;
+    newContacts = new Contacts({
+        fullName: fullName,
+        email: email.toLowerCase(),
+        phoneNumber: phoneNumber,
+        subject: subject,
+        textMessage: textMessage
+    });    
+    newContacts.save(function(err, data) {
+        console.log(err)
+        if (err) {
+            res.json({
+                success: false,
+                msg: 'Please fill all fields'
+            });
+        } else {
+            res.json({
+                success: true,
+                msg: 'Successful add your information',
+                data: data
+            });
+            return;
+        }
+    });
+})
+// Dnr Contacts get
+// created by - AniMesh;
+// created on - 24th April 2018;
+router.get('/getContacts', function(req, res, next) {
+    Contacts.find().then(function(contactData) {
+        if (contactData) {
+            res.json({
+                success: true,
+                msg: "Fetched All Contacts Successfully",
+                data: contactData
+            });
+        } else {
+            res.json({
+                success: false,
+                msg: "Failed to get Contacts"
+            })
+        }
+    }).catch(function(error) {
+        console.log(error);
+        res.json({
+            success: false,
+            msg: "Please enter valid params"
+        })
+    })
+})
+// Dnr Contacts get Each
+// created by - AniMesh;
+// created on - 24th April 2018;
+router.get('/getContacts/:id', function(req, res, next) {
+    Contacts.findOne({_id:req.params.id}, function(err,result){
+        if (result) {
+            res.json({
+                success: true,
+                msg: "Fetched Each Contact Successfully",
+                data: result
+            })
+            return            
+        } else{
+            res.json({
+                success: false,
+                msg: "Please Enter valid Id"
+            })
+            return
+        };
+    })
+})
+// Dnr Contents
+// created by - AniMesh;
+// created on - 27th April 2018;
+router.post('/addContent', function(req, res, next) {
+    Contents.create({ 
+        title: req.body.title,
+        description: req.body.description,
+        conType:req.body.conType
+    }, function (err, result) {
+        if (err) {
+            res.json({
+                success: false,
+                msg: 'Content are not inserted'
+            });
+        } else {
+            res.json({
+                success: true,
+                msg: 'Successfully inserted new Content',
+                data: result
+            });
+            return;
+        }
+    })
+})
+// Dnr Contents get
+// created by - AniMesh;
+// created on - 24th April 2018;
+router.get('/getContents', function(req, res, next) {
+    Contents.find().then(function(contentData) {
+        if (contentData) {
+            res.json({
+                success: true,
+                msg: "Fetched All Contents Successfully",
+                data: contentData
+            });
+        } else {
+            res.json({
+                success: false,
+                msg: "Failed to get Contents"
+            })
+        }
+    }).catch(function(error) {
+        console.log(error);
+        res.json({
+            success: false,
+            msg: "Please enter valid params"
+        })
+    })
+})
+// Dnr Contents Edit
+// created by - AniMesh;
+// created on - 27th April 2018;
+router.post('/editContents', function(req,res,next){
+    Contents.findOneAndUpdate({
+        _id: req.body.ID
+        },{
+            $set:{
+                description: req.body.description
+            }
+        },{new:true}, function(err, result) {
+        if (result) {
+            res.json({
+                success: true,
+                msg: "Each Content data Updated successfully",
+                data: result
+            });
+            return;            
+        } else{
+            res.json({
+                success: false,
+                msg: "Please Enter valid id"
+            });
+            return;
+        };
+    })
+})
+// Dnr Content get Each
+// created by - AniMesh;
+// created on - 27th April 2018;
+router.get('/getContents/:id', function(req, res, next) {
+    Contents.findOne({_id:req.params.id}, function(err,result){
+        if (result) {
+            res.json({
+                success: true,
+                msg: "Fetched Each Contents Successfully",
+                data: result
+            })
+            return            
+        } else{
+            res.json({
+                success: false,
+                msg: "Please Enter valid Id"
+            })
+            return
+        };
     })
 })
 

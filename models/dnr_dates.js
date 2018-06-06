@@ -3,14 +3,14 @@ var Schema = mongoose.Schema;
 var plugin = require('mongoose-createdat-updatedat');
 
 var DateSchema = new Schema({
-    date_requester_id:{
+	date_requester_id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'DnR_User'
-    },
-    date_receiver_id:{
+	},
+	date_receiver_id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'DnR_User'
-    },
+	},
     request_send_date:{
         type: Date
     },

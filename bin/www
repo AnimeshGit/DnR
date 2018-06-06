@@ -12,14 +12,22 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '5050');
+var port = normalizePort(process.env.PORT || '5051');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
+var options = {
+  rejectUnauthorized: false
+};
 
-var server = http.createServer(app);
+// subjectAltName          = '@alt_names_server'
+
+// [alt_names_server]
+// IP.1 = '104.236.14.154'
+
+var server = http.createServer(app,options);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -87,4 +95,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  console.log("running");
 }
